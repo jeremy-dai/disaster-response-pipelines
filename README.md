@@ -11,7 +11,7 @@ This project analyzes disaster data from [Figure Eight](https://www.figure-eight
 ## ETL Pipeline
 The first part of the data pipeline is the Extract, Transform, and Load process. Here, we read the dataset, clean the data, and then store it in a SQLite database. To load the data into an SQLite database, we use the pandas dataframe .to_sql() method.
 
-EDA is performed in order to figure out how we want to clean the data set. 
+EDA is performed in order to figure out how we want to clean the data set.
 
 The Python script, process_data.py, includes a data cleaning pipeline that:
 
@@ -33,7 +33,19 @@ The Python script, train_classifier.py, includes a machine learning pipeline tha
 
 <a name="web"></a>
 ### Flask Web App
-This project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app also displays visualizations of the data. 
+This project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app also displays visualizations of the data.
+
+1. Run the following commands to set up your database and model.
+
+    - To run ETL pipeline that cleans data and stores in database
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+    - To run ML pipeline that trains classifier and saves
+        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+
+2. Run the following command in the app's directory to run the web app.
+    `python run.py`
+
+3. Go to http://0.0.0.0:3001/
 
 <a name="license"></a>
 ## License
