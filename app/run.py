@@ -31,7 +31,7 @@ engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('DisasterResponse', engine)
 
 # load model
-model = joblib.load("../models/model.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -40,32 +40,50 @@ model = joblib.load("../models/model.pkl")
 def index():
 
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
-    graphs = [
-        {
-            'data': [
-                Bar(
-                    x = genre_names,
-                    y = genre_counts.tolist()
-                )
-            ],
+    # create visual：bar graph of genres
+    graphs = []
 
-            'layout': {
-                'title': 'Distribution of Message Genres',
-                'yaxis': {
-                    'title': "Count"
-                },
-                'xaxis': {
-                    'title': "Genre"
+    graphs.append({'data': [
+                    Bar(
+                        x = genre_names,
+                        y = genre_counts.tolist()
+                    )
+                ],
+
+                'layout': {
+                    'title': 'Distribution of Message Genres',
+                    'yaxis': {
+                        'title': "Count"
+                    },
+                    'xaxis': {
+                        'title': "Genre"
+                    }
                 }
-            }
-        }
-    ]
+            })
+
+    # create visual：bar graph of disaster categories
+    category_counts = df.iloc[:,4:].sum().sort_values(ascending=False)
+
+    graphs.append({'data': [
+                    Bar(
+                        x = category_counts.index.tolist(),
+                        y = category_counts.tolist()
+                    )
+                ],
+
+                'layout': {
+                    'title': 'Distribution of Message Categories',
+                    'yaxis': {
+                        'title': "Count"
+                    },
+                    'xaxis': {
+                        'title': "Message Category"
+                    }
+                }
+            })
 
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]

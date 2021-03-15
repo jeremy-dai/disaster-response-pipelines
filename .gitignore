@@ -90,3 +90,6 @@ ENV/
 
 # MacBook
 .DS_Store
+
+# other
+models/classifier.pkl
