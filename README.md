@@ -47,6 +47,10 @@ This project includes a web app where an emergency worker can input a new messag
 
 3. Go to http://0.0.0.0:3001/
 
+The following figures show the screenshots of the web.
+![plot](images/disaster-response-project1.png)
+![plot](images/disaster-response-project2.png)
+
 <a name="license"></a>
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
