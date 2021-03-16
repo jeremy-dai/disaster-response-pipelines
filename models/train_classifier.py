@@ -29,7 +29,8 @@ def load_data(database_filepath):
     category_names: a list of the categories of the labels
 
     """
-    engine = create_engine('sqlite:///data/DisasterResponse.db')
+    database_filepath = 'sqlite:///' + database_filepath
+    engine = create_engine(database_filepath)
     df = pd.read_sql_table('DisasterResponse', engine)
     X = df['message']
     Y = df.drop(['id', 'message', 'original', 'genre'], axis = 1)
@@ -38,6 +39,15 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """ tokenize the message string and clean it
+
+    Args:
+    text: the message string
+
+    Returns:
+    clean_tokens: the list of clean tokens
+
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -50,12 +60,29 @@ def tokenize(text):
 
 
 def build_model():
+    """ build the pipeline from vectorizer, TfidfTransformer to classifier
+    Use GridSearchCV to finetune parameters
+
+    Returns:
+    cv: the best pipeline of vectorizer, TfidfTransformer to classifier
+
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize, ngram_range = (1, 2))),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(RandomForestClassifier(n_estimators = 20)))
+        ('clf',
+     MultiOutputClassifier(RandomForestClassifier(n_estimators = 20)))
     ])
-    return pipeline
+
+    parameters = {
+    'vect__ngram_range': ((1, 1), (1, 2)),
+    'clf__estimator__min_samples_split': [2, 3]
+    }
+
+    cv = GridSearchCV(pipeline, param_grid=parameters, cv = 3, scoring='f1_marco')
+
+    cv.fit(X_train, Y_train)
+    return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
@@ -83,6 +110,12 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """ save the trained model as a pickle file
+
+    Args:
+    model: the trained model (pipeline)
+    model_filepath: the filepath where the model is saved
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 def main():

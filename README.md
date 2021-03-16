@@ -2,10 +2,30 @@
 This project analyzes disaster data from [Figure Eight](https://www.figure-eight.com/) to build a model for an API that classifies disaster messages. The data set contains real messages that were sent during disaster events. We will be creating a machine learning pipeline to categorize these events so that we can send the messages to an appropriate disaster relief agency.
 
 ## Table of Contents
-1. [ETL Pipeline](#etl)
-2. [ML Pipeline](#ml)
-3. [Flask Web App](#web)
-4. [License](#license)
+1. [Files in the repository](#files)
+2. [ETL Pipeline](#etl)
+3. [ML Pipeline](#ml)
+4. [Flask Web App](#web)
+5. [License](#license)
+
+<a name="files"></a>
+## Files in the repository
+app
+| - template
+| |- master.html # main page of web app
+| |- go.html # classification result page of web app
+|- run.py # Flask file that runs app
+data
+|- disaster_categories.csv # data to process
+|- disaster_messages.csv # data to process
+|- process_data.py # python file to clean and output the data
+|- disaster_categories.db # database to save clean data to
+|- ETL Pipeline Preparation.ipynb # python notebook for EDA
+models
+|- train_classifier.py # python file to train and save the classifier
+|- classifier.pkl # saved model
+|- ML Pipeline Preparation.ipynb # python notebook for exploring model building
+README.md
 
 <a name="etl"></a>
 ## ETL Pipeline

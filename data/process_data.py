@@ -15,8 +15,8 @@ def load_data(messages_filepath, categories_filepath):
     The combined dataset of the messages dataset and categories dataset
 
     """
-    messages = pd.read_csv('disaster_messages.csv')
-    categories = pd.read_csv('disaster_categories.csv')
+    messages = pd.read_csv(messages_filepath)
+    categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories,on=['id'], how='inner')
     return df
 
@@ -67,7 +67,7 @@ def save_data(df, database_filename):
     """
     database_filename = 'sqlite:///' + database_filename
     engine = create_engine(database_filename)
-    df.to_sql('DisasterResponse', engine, index=False)
+    df.to_sql('DisasterResponse', engine, index=False, if_exists='replace')
 
 
 def main():
