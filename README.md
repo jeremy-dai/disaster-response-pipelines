@@ -10,21 +10,21 @@ This project analyzes disaster data from [Figure Eight](https://www.figure-eight
 
 <a name="files"></a>
 ## Files in the repository
-app
-| - template
-| |- master.html # main page of web app
-| |- go.html # classification result page of web app
-|- run.py # Flask file that runs app
-data
-|- disaster_categories.csv # data to process
-|- disaster_messages.csv # data to process
-|- process_data.py # python file to clean and output the data
-|- disaster_categories.db # database to save clean data to
-|- ETL Pipeline Preparation.ipynb # python notebook for EDA
-models
-|- train_classifier.py # python file to train and save the classifier
-|- classifier.pkl # saved model
-|- ML Pipeline Preparation.ipynb # python notebook for exploring model building
+app<br/>
+| - template<br/>
+| |- master.html # main page of web app<br/>
+| |- go.html # classification result page of web app<br/>
+|- run.py # Flask file that runs app<br/>
+data<br/>
+|- disaster_categories.csv # data to process<br/>
+|- disaster_messages.csv # data to process<br/>
+|- process_data.py # python file to clean and output the data<br/>
+|- disaster_categories.db # database to save clean data to<br/>
+|- ETL Pipeline Preparation.ipynb # python notebook for EDA<br/>
+models<br/>
+|- train_classifier.py # python file to train and save the classifier<br/>
+|- classifier.pkl # saved model<br/>
+|- ML Pipeline Preparation.ipynb # python notebook for exploring model building<br/>
 README.md
 
 <a name="etl"></a>
